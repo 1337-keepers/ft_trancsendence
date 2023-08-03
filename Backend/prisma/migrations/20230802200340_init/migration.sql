@@ -1,11 +1,3 @@
-/*
-  Warnings:
-
-  - The `userstatus` column on the `User` table would be dropped and recreated. This will lead to data loss if there is data in the column.
-  - You are about to drop the `_AchievementToUser` table. If the table is not empty, all the data it contains will be lost.
-  - Added the required column `userId` to the `Achievement` table without a default value. This is not possible if the table is not empty.
-
-*/
 -- CreateEnum
 CREATE TYPE "USER_STATUS" AS ENUM ('online', 'offline', 'in_game');
 
@@ -30,24 +22,21 @@ CREATE TYPE "USER_STATUS_GROUP" AS ENUM ('MUTED', 'UNMUTED', 'BANNED');
 -- CreateEnum
 CREATE TYPE "USER_ROLE" AS ENUM ('ADMIN', 'MEMBER');
 
--- DropForeignKey
-ALTER TABLE "_AchievementToUser" DROP CONSTRAINT "_AchievementToUser_A_fkey";
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "firstName" TEXT,
+    "lastName" TEXT,
+    "username" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT,
+    "passwordDalt" TEXT,
+    "cover" TEXT NOT NULL,
+    "towFactorAuth" BOOLEAN NOT NULL DEFAULT false,
+    "userstatus" "USER_STATUS" NOT NULL DEFAULT 'offline',
 
--- DropForeignKey
-ALTER TABLE "_AchievementToUser" DROP CONSTRAINT "_AchievementToUser_B_fkey";
-
--- AlterTable
-ALTER TABLE "Achievement" ADD COLUMN     "userId" TEXT NOT NULL;
-
--- AlterTable
-ALTER TABLE "User" DROP COLUMN "userstatus",
-ADD COLUMN     "userstatus" "USER_STATUS" NOT NULL DEFAULT 'offline';
-
--- DropTable
-DROP TABLE "_AchievementToUser";
-
--- DropEnum
-DROP TYPE "Iname";
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Friend" (
@@ -65,6 +54,16 @@ CREATE TABLE "Friendship" (
     "friendId" TEXT NOT NULL,
 
     CONSTRAINT "Friendship_pkey" PRIMARY KEY ("userId","friendId")
+);
+
+-- CreateTable
+CREATE TABLE "Achievement" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+
+    CONSTRAINT "Achievement_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -157,6 +156,18 @@ CREATE TABLE "conversation" (
 
     CONSTRAINT "conversation_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_firstName_key" ON "User"("firstName");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_lastName_key" ON "User"("lastName");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "History_gameId_key" ON "History"("gameId");
