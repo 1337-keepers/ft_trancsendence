@@ -49,19 +49,19 @@ const Username = () => {
       </div>
       <div className="flex">
       {/*Sidebar*/}
-        <div className="w-[75px] h-screen bg-[#000355] sm:bg-[#33437D] z-10 flex flex-col justify-between">
-          <div className="sm:block hidden bg-[#33437D]">
+        <div className="border w-[75px] h-screen bg-[#000355] sm:bg-[#33437D] z-10 flex flex-col justify-between sm:block hidden">
+          <div className="sm:bg-[#33437D] sm:block hidden">
             <div className="flex justify-center mb-[50px] mt-[20px]">
-              <Image src={"/user_off.png"} alt="image" width={30} height={30}/>
+              <Image className="sm:block hidden" src={"/user_off.png"} alt="image" width={30} height={30}/>
             </div>
             <div className="flex justify-center mb-[50px] mt-[20px]">
-              <Image src={"/game_off.png"} alt="image" width={37} height={37}/>
+              <Image className="sm:block hidden" src={"/game_off.png"} alt="image" width={37} height={37}/>
             </div>
             <div className="flex justify-center mb-[50px] mt-[20px]">
-              <Image src={"/fre_off.png"} alt="image" width={26} height={26}/>
+              <Image className="sm:block hidden" src={"/fre_off.png"} alt="image" width={26} height={26}/>
             </div>
             <div className="flex justify-center mb-[50px] mt-[20px]">
-              <Image src={"/mes_off.png"} alt="image" width={29} height={29}/>
+              <Image className="sm:block hidden" src={"/mes_off.png"} alt="image" width={29} height={29}/>
             </div>
           </div>
           <div className="flex justify-center mb-[100px] bg-[#33437D]">
