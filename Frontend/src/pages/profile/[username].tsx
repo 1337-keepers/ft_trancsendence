@@ -6,27 +6,27 @@ import Image from 'next/image';
 const Username = () => {
   const router = useRouter();
   const user = router.query;
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(1000);
 
-  const handleResize = () => {
-    const windowWidth = window.innerWidth;
-    console.log(windowWidth);
-    if (windowWidth < 768) {
-      setWidth(200);
-    } else if (windowWidth < 1024) {
-      setWidth(400);
-    } else {
-      setWidth(968);
-    }
-  };
+  // const handleResize = () => {
+  //   const windowWidth = window.innerWidth;
+  //   console.log(windowWidth);
+  //   if (windowWidth < 768) {
+  //     setWidth(200);
+  //   } else if (windowWidth < 1024) {
+  //     setWidth(400);
+  //   } else {
+  //     setWidth(968);
+  //   }
+  // };
 
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  // useEffect(() => {
+  //   handleResize();
+  //   window.addEventListener('resize', handleResize);
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
   
   return (
     <div className="flex flex-col w-screen h-screen overflow-hidden">
@@ -72,19 +72,23 @@ const Username = () => {
         </div>
         {/*Content*/}
         <div className="flex flex-col grow items-center justify-start">
-          <div className="relative flex items-center justify-center flex-col mt-[36px] mb-[19px] ">
-            <div className="border w-[968px] h-[242px] rounded-t-2xl">
+          {/* First */}
+          <div className="relative flex items-center justify-center flex-col mt-[36px] mb-[19px]">
+            {/* Cover  */}
+            <div className="border h-[100px] md:h-[150px] w-[400px] md:w-[600px] lg:h-[242px] lg:w-[968px] rounded-t-2xl">
               <Image className="rounded-t-2xl" src={"/cover.png"} alt="cover" layout="responsive" width={width} height={242}/>
             </div>
-            <div className="border w-[968px] rounded-b-2xl h-[78px] bg-[#33437D] ">
+            <div className="border w-[400px] md:w-[600px] h-[78px] lg:w-[968px] rounded-b-2xl bg-[#33437D] ">
 
             </div>
-            <div className="border absolute sm:bottom-10 sm:left-20 bottom-50 left-30">
+            {/* Avatar */}
+            <div className="absolute md:bottom-10 md:left-20 bottom-50 left-50">
               <Image className="rounded-t-2xl" src={"/avatar.png"} alt="image" width={98} height={98}/>
             </div>
           </div>
-          <div className="rounded-2xl flex flex-col w-[967px] h-[419px] bg-[#33437D] mt-[36px]">
-            <div className="border-b-[2px] w-[955px] h-[60px] flex items-center justify-center ml-[6px] mr-[6px]">
+          {/* Last */}
+          <div className="rounded-2xl flex flex-col w-[413px] md:w-[613px] lg:w-[968px] h-[419px] bg-[#33437D] mt-[36px]">
+            <div className="border-b-[2px] w-[400px] md:w-[600px] lg:w-[955px] h-[60px] flex items-center justify-center ml-[6px] mr-[6px]">
               <div className="border-r-[2px] w-[322px] h-[51px] flex items-center justify-center">
                 <Image src={"/ach_off.png"} alt="image" width={34} height={34}/>
               </div>
