@@ -49,7 +49,7 @@ const Username = () => {
       </div>
       <div className="flex">
       {/*Sidebar*/}
-        <div className="border w-[75px] h-screen bg-[#000355] sm:bg-[#33437D] z-10 flex flex-col justify-between sm:block hidden">
+        <div className="w-[75px] h-screen bg-[#000355] sm:bg-[#33437D] z-10 flex flex-col justify-between sm:block hidden">
           <div className="sm:bg-[#33437D] sm:block hidden">
             <div className="flex justify-center mb-[50px] mt-[20px]">
               <Image className="sm:block hidden" src={"/user_off.png"} alt="image" width={30} height={30}/>
@@ -75,10 +75,10 @@ const Username = () => {
           {/* First */}
           <div className="relative flex items-center justify-center flex-col mt-[36px] mb-[19px]">
             {/* Cover  */}
-            <div className="border h-[100px] md:h-[150px] w-[400px] md:w-[600px] lg:h-[242px] lg:w-[968px] rounded-t-2xl">
+            <div className="h-[100px] md:h-[150px] w-[400px] md:w-[600px] lg:h-[242px] lg:w-[968px] rounded-t-2xl">
               <Image className="rounded-t-2xl" src={"/cover.png"} alt="cover" layout="responsive" width={width} height={242}/>
             </div>
-            <div className="border w-[400px] md:w-[600px] h-[78px] lg:w-[968px] rounded-b-2xl bg-[#33437D] ">
+            <div className="w-[400px] md:w-[600px] h-[78px] lg:w-[968px] rounded-b-2xl bg-[#33437D] ">
 
             </div>
             {/* Avatar */}
