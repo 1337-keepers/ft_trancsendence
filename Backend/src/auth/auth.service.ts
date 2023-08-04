@@ -14,15 +14,18 @@ export class AuthService {
   //   return this.prisma.user.findMany();
   // }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({ data });
-  }
+  // async createUser(data: Prisma.UserCreateInput): Promise<User> {
+  //   return await this.prisma.user.create({ data });
+  // }
 
   // async deleteUser(id: string): Promise<User> {
   //   return this.prisma.user.delete({ where: { id } });
   // }
 
-  // // Other CRUD operations and custom methods
+  async createJwtToken(userId: string): Promise<string> {
+    const payload = { sub: userId };
+    return await this.jwtService.signAsync(payload);
+  }
 
   // async closePrisma() {
   //   await this.prisma.$disconnect();
@@ -42,10 +45,11 @@ export class AuthService {
         data: {
           id: profile.id,
           username: profile.username,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
           email: profile.email,
           cover: profile.cover,
-          towFactorAuth: profile.towFactorAuth,
-          userstatus: profile.userstatus,
+          towFactorAuth: false,
         },
       });
       return newUser;

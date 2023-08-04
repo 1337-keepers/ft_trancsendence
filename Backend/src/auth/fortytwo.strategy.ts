@@ -10,7 +10,7 @@ export class FortyTwoStrategy extends PassportStrategy(Strategy, 'oauth2') {
     super({
       clientID: 'u-s4t2ud-22964183ad1e4850a6e941f550a94ba9ce264c47ba0e8224bb4d90d874b70a41',
       clientSecret: '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',
-      callbackURL: 'http://e3r8p15.1337.ma:3000/oauth/callback',
+      callbackURL: 'http://localhost:3000/oauth/callback',
     });
   }
 
