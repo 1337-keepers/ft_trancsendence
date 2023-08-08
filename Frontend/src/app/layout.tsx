@@ -20,7 +20,6 @@ export default function RootLayout({
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
       </style>
-
       <body className={inter.className}>{children}</body>
     </html>
   )
