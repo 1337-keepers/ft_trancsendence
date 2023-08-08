@@ -16,6 +16,7 @@ type User = {
 
 const Profile = () => {
   const { username, id } = useRouter().query;
+  
   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     const fetchUser = async () => {

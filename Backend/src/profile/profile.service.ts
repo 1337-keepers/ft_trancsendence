@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 export class ProfileService {
   private prisma: PrismaClient;
 
-  constructor() {
+  constructor(private jwtService: JwtService) {
     this.prisma = new PrismaClient();
   }
 
@@ -22,14 +22,31 @@ export class ProfileService {
   //   return this.prisma.user.delete({ where: { id } });
   // }
 
-  async findUserByUserName(username: string): Promise<User> {
+  async verifyToken(token: string): Promise<User> {
     try {
-      const user = await this.prisma.user.findUnique({ where: { username } });
-      return user;
+      console.error('token 2: ', token);
+      const decoded: User = await this.jwtService.verifyAsync(token);
+      console.error('token finded');
+      return decoded;
     }
     catch (err) {
-      console.error(err);
-      throw new Error('Failed to fetch user by username');
+      console.error('error token');
+      throw err;
+    }
+  }
+
+  async findUserByUserName(username: string): Promise<User> {
+    try {
+      console.error('username 2: ', username);
+      const user = await this.prisma.user.findUnique({ where: { username } });
+      console.error(user);
+      if (user)
+        return user;
+      else
+        throw new Error('user not found');
+    }
+    catch (err) {
+      throw err;
     }
   }
 }

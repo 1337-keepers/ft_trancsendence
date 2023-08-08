@@ -3,6 +3,7 @@ import '@/app/globals.css'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import Missing from '@/pages/missing';
 import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 
@@ -19,29 +20,25 @@ type User = {
 }
 
 const Username = () => {
-  const { username } = useRouter().query;
-  const [user, setUser] = useState<User | null>(null);
-  const [name, setName] = useState('');
-  const jwtToken = Cookies.get('jwt');
-  if (jwtToken) {
-    const decodedToken = jwt.decode(jwtToken);
-    if (decodedToken) {
-      setName(decodedToken.username);
-    }
-    console.log(name);
-  }
+  const instance = {} as User;
+  const router = useRouter();
+  const { username } = router.query;
+  const [user, setUser] = useState<User | null>(instance);
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/profile?username=${username}`);
+        console.log('jwt : ', Cookies.get('jwt'));
+        const response = await fetch(`http://localhost:3000/profile?username=${username}&token=${Cookies.get('jwt')}`);
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
         } else {
           console.error('No such user');
+          router.push('/missing');
         }
       } catch (error) {
         console.error('Unable to fetch user');
+        router.push('/missing');
       }
     };
     if (username)
@@ -53,7 +50,7 @@ const Username = () => {
       {/*Navbar*/}
       <div className="w-screen h-[50px] bg-[#33437D] flex justify-between z-20">
         <div className="border-r border-black flex justify-start items-center">
-          <Link href={`/profile?username=${username}`} as={`/profile/${username}`}>
+          <Link href={`/profile/${username}?username=${username}`}>
             <Image src={"/profile_logo.png"} alt="image" width={74} height={50}/>
           </Link>
         </div>

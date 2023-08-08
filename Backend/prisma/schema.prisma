@@ -62,7 +62,7 @@ model User {
   userstatus    USER_STATUS         @default(offline)
   achievement   Achievement[]
   notification  Notification[]
-  Frirndship    Friendship[]
+  Friendship    Friendship[]
   game          Game[]
   conversation  conversation[]
   RoomChatConversation RoomChatConversation[]

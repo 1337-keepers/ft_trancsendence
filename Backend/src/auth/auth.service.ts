@@ -24,7 +24,13 @@ export class AuthService {
 
   async createJwtToken(userId: string): Promise<string> {
     const payload = { sub: userId };
-    return await this.jwtService.signAsync(payload);
+    try {
+      return await this.jwtService.signAsync(payload);
+    }
+    catch (err) {
+      console.error(err);
+      throw new Error('Failed to create JWT token');
+    }
   }
 
   // async closePrisma() {
@@ -35,24 +41,30 @@ export class AuthService {
     // You can perform any necessary operations to store and retrieve user information from your database or other data source
     
     // Example: Assuming you have a database with a User model
-    const user = await this.prisma.user.findUnique({ where: { id: profile.id } });
+    try {
+      const user = await this.prisma.user.findUnique({ where: { id: profile.id } });
+      if (user) {
+        return user;
+      } else {
+        const newUser = await this.prisma.user.create({
+          data: {
+            id: profile.id,
+            username: profile.username,
+            firstName: profile.firstName,
+            lastName: profile.lastName,
+            email: profile.email,
+            cover: profile.cover,
+            towFactorAuth: false,
+          },
+        });
+        return newUser;
+      }
+    }
+    catch (err) {
+      throw err;
+    }
     
     // If the user exists, return it. Otherwise, create a new user.
-    if (user) {
-      return user;
-    } else {
-      const newUser = await this.prisma.user.create({
-        data: {
-          id: profile.id,
-          username: profile.username,
-          firstName: profile.firstName,
-          lastName: profile.lastName,
-          email: profile.email,
-          cover: profile.cover,
-          towFactorAuth: false,
-        },
-      });
-      return newUser;
-    }
+    
   }
 }
