@@ -24,9 +24,9 @@ export class ProfileService {
 
   async verifyToken(token: string): Promise<User> {
     try {
-      console.error('token 2: ', token);
+      // console.error('token 2: ', token);
       const decoded: User = await this.jwtService.verifyAsync(token);
-      console.error('token finded');
+      // console.error('token finded');
       return decoded;
     }
     catch (err) {
@@ -37,7 +37,6 @@ export class ProfileService {
 
   async findUserByUserName(username: string): Promise<User> {
     try {
-      console.error('username 2: ', username);
       const user = await this.prisma.user.findUnique({ where: { username } });
       console.error(user);
       if (user)

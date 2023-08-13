@@ -29,8 +29,6 @@ CREATE TABLE "User" (
     "lastName" TEXT,
     "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT,
-    "passwordDalt" TEXT,
     "cover" TEXT NOT NULL,
     "towFactorAuth" BOOLEAN NOT NULL DEFAULT false,
     "userstatus" "USER_STATUS" NOT NULL DEFAULT 'offline',

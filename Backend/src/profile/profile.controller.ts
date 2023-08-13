@@ -16,17 +16,19 @@ export class ProfileController {
   }
 
   @Get('profile')
-  async getUserByUserName(@Query('username') username: string, @Query('token') token: string, @Res() res: Response) {
+  async getUserByUserName(@Query('token') token: string, @Res() res: Response) {
     try {
-        console.error('token 1: ', token);
-        this.profileService.verifyToken(token);
-        console.error('username 1: ', username);
-        const user = await this.profileService.findUserByUserName(username);
-        console.error('MZN');
+        // console.error('token 10: ', token);
+        const user = this.profileService.verifyToken(token);
+        if (!user)
+          throw new Error('User not found');
+        // const user = await this.profileService.findUserByUserName(username);
+        // console.error('MZN');
         res.send(user);
     }
     catch (err) {
-        console.log('problem unknown');
+        res.redirect(`http://localhost:3001/missing`);
+        // console.log('problem unknown');
         throw err;
     }
   }

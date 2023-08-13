@@ -55,8 +55,6 @@ model User {
   lastName      String?       @unique
   username      String        @unique
   email         String        @unique
-  password      String?
-  passwordDalt  String?
   cover         String
   towFactorAuth Boolean       @default(false)
   userstatus    USER_STATUS         @default(offline)

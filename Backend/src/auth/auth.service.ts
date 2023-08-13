@@ -22,8 +22,8 @@ export class AuthService {
   //   return this.prisma.user.delete({ where: { id } });
   // }
 
-  async createJwtToken(userId: string): Promise<string> {
-    const payload = { sub: userId };
+  async createJwtToken(userName: string): Promise<string> {
+    const payload = { sub: userName };
     try {
       return await this.jwtService.signAsync(payload);
     }
@@ -37,10 +37,6 @@ export class AuthService {
   //   await this.prisma.$disconnect();
   // }
   async validateOrRegisterUser(profile: User): Promise<any> {
-    // Retrieve or create the user based on the profile data
-    // You can perform any necessary operations to store and retrieve user information from your database or other data source
-    
-    // Example: Assuming you have a database with a User model
     try {
       const user = await this.prisma.user.findUnique({ where: { id: profile.id } });
       if (user) {
@@ -55,6 +51,7 @@ export class AuthService {
             email: profile.email,
             cover: profile.cover,
             towFactorAuth: false,
+            userstatus: "offline",
           },
         });
         return newUser;
@@ -62,9 +59,6 @@ export class AuthService {
     }
     catch (err) {
       throw err;
-    }
-    
-    // If the user exists, return it. Otherwise, create a new user.
-    
+    }    
   }
 }

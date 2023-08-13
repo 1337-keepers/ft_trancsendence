@@ -3,8 +3,8 @@ import '@/app/globals.css'
 
 export default function settings() {
   return (
-    <div>
-      This is the settings page
+    <div className="w-screen h-screen flex items-center justify-center text-white text-[2rem]">
+      <p>This is the settings page</p>
     </div>
   )
 }

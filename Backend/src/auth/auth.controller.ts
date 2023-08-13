@@ -19,7 +19,7 @@ export class AuthController {
     this.authService.validateOrRegisterUser(req.user);
     const token = await this.authService.createJwtToken(req.user.username);
     res.cookie('jwt', token);
-    res.redirect(`http://localhost:3001/profile/${req.user.username}?username=${req.user.username}`);
+    res.redirect(`http://localhost:3001/profile`);
   }
 
 }
