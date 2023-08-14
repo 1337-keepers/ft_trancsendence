@@ -32,24 +32,24 @@ const Profile = (myCookie: string) => {
 
   useEffect(() => {
 
-    if (cookie == null) {
-      console.log('Cookie is null');
-      const deleteuser = async () => {
-        try {
-          const response = await fetch(`http://localhost:3000/logout`);
-          if (response.ok) {
-            const userData = await response.json();
-            setUser(userData);
-          } else {
-            console.error('No such user');
-          }
-        } catch (error) {
-          console.error('Unable to fetch user');
-        }
-      };
-      router.push('/');
-      return;
-    }
+    // if (cookie == null) {
+    //   console.log('Cookie is null');
+    //   const deleteuser = async () => {
+    //     try {
+    //       const response = await fetch(`http://localhost:3000/logout`);
+    //       if (response.ok) {
+    //         const userData = await response.json();
+    //         setUser(userData);
+    //       } else {
+    //         console.error('No such user');
+    //       }
+    //     } catch (error) {
+    //       console.error('Unable to fetch user');
+    //     }
+    //   };
+    //   router.push('/');
+    //   return;
+    // }
 
     const fetchUser = async () => {
       try {

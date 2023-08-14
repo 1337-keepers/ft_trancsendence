@@ -22,6 +22,9 @@ export class ProfileController {
         const user = this.profileService.verifyToken(token);
         if (!user)
           throw new Error('User not found');
+        if ((await user).towFactorAuth == true)
+          res.redirect(`http://localhost:3001/auth`);
+
         // const user = await this.profileService.findUserByUserName(username);
         // console.error('MZN');
         res.send(user);

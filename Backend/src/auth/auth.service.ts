@@ -50,7 +50,7 @@ export class AuthService {
             lastName: profile.lastName,
             email: profile.email,
             cover: profile.cover,
-            towFactorAuth: false,
+            towFactorAuth: true,
             userstatus: "offline",
           },
         });
