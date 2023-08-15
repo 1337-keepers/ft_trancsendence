@@ -2,17 +2,17 @@ import React from "react";
 import { Channel } from "@/app/types";
 
 
-const ChannelsList = ({channels, updateSelectedChannel} : {channels : Channel[], updateSelectedChannel : (arg : Channel) => void}) => {
-  const zob = () => {
-    console.log("zob")
-  }
+const ChannelsList = ({channels, updateSelectedChannel} : {channels : Channel[], updateSelectedChannel : (arg : Channel | null) => void}) => {
 
 	return (
     <div>
       <ul>
         {channels.map((channel : Channel) => (
-          <li className="border" key={channel.id}>
-            <button onClick={zob}>
+          <li className="flex justify-center items-center border h-[3rem] text-xl"
+            onClick={() => updateSelectedChannel(channel)}
+            key={channel.id}
+          >
+            <button >
               {channel.name}
             </button>
           </li>

@@ -2,6 +2,8 @@ import React, { use, useEffect } from 'react';
 import { User, Message, Channel, ChatType } from '@/app/types';
 import { useState } from 'react';
 import ChannelsList from './ChannelsList';
+import ChannelContent from './ChannelContent';
+import ChannelDetails from './ChannelDetails';
 
 const Chat = ( {user}:{user: User | null} ) => {
 	const [channels, setChannels] = useState<Channel[]>([]);
@@ -19,6 +21,13 @@ const Chat = ( {user}:{user: User | null} ) => {
 				userId: "1",
 				createdAt: new Date()
 			}
+			const message2 : Message = {
+				id: "2",
+				content: "zobi",
+				channelId: "1",
+				userId: "1",
+				createdAt: new Date()
+			}
 			const channel : Channel = {
 				id: "1",
 				name: "General",
@@ -26,7 +35,7 @@ const Chat = ( {user}:{user: User | null} ) => {
 				type: ChatType.PUBLIC,
 				moderatorId: "1",
 				createdAt: new Date(),
-				messages: [message],
+				messages: [message, message2],
 				members: [],
 				memberCount: 1,
 				memberLimit: 100
@@ -44,14 +53,13 @@ const Chat = ( {user}:{user: User | null} ) => {
 			updateChannels(user.channels);
 		}
 		fetchChannels();
-	}, [channels]);
+	}, []);
 
 	const updateChannels = (channels : Channel[]) => {
 		setChannels(channels)
 	}
-	const updateSelectedChannel = (channel : Channel) => {
+	const updateSelectedChannel = (channel : Channel | null) => {
 		setSelectedChannel(channel)
-		console.log(channel)
 	}
 
 	return (
@@ -60,16 +68,20 @@ const Chat = ( {user}:{user: User | null} ) => {
 				<div className="flex pl-[2rem] items-center text-2xl text-white w-[15rem] h-[4rem] border-r">
 					Chat room
 				</div>
-				<div className="w-[45rem]"></div>
+				<div className="flex items-center justify-evenly w-[45rem]">
+					<ChannelDetails channel={selectedChannel} updateSelectedChannel={updateSelectedChannel} />
+				</div>
 			</div>
-			<div className="">
+			<div className="flex">
 				<div className="w-[15rem] h-[55.8rem] border-r">
 					<ChannelsList
 						channels={channels}
 						updateSelectedChannel={updateSelectedChannel}
 					/>
 				</div>
-				<div className="w-[45rem]"></div>
+				<div className="w-[45rem]">
+					<ChannelContent channel={selectedChannel} />
+				</div>
 			</div>
 		</div>
 	)
