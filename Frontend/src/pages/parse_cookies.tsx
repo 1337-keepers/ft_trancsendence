@@ -1,13 +1,16 @@
 import { setCookie } from 'nookies';
 import { parseCookies } from 'nookies';
+import { parse } from 'cookie';
 
-export async function getServerSideProps() {
-    const cookies = parseCookies();
-    const myCookie = cookies.jwt;
-    console.log('myCookie : ', myCookie);
+
+export async function getServerSideProps(context : any) {
+  const cookieHeader = context.req.headers.cookie;
+  const myCookie = parse(cookieHeader || '');
+  const jwt = myCookie.jwt;
+  // console.log('jwt : ', jwt);
   return {
     props: {
-        myCookie,
+      jwt: jwt ? jwt : null,
     },
   };
 }

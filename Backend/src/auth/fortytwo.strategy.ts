@@ -23,6 +23,7 @@ export class FortyTwoStrategy extends PassportStrategy(Strategy, 'oauth2') {
       email: profile.emails[0].value,
       cover: profile.profileUrl,
       towFactorAuth: false,
+      phoneNumber: "+212638217844"
     });
   }
 }

@@ -31,6 +31,8 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "cover" TEXT NOT NULL,
     "towFactorAuth" BOOLEAN NOT NULL DEFAULT false,
+    "otpCode" TEXT,
+    "phoneNumber" TEXT,
     "userstatus" "USER_STATUS" NOT NULL DEFAULT 'offline',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
