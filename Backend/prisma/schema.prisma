@@ -15,159 +15,155 @@ enum USER_STATUS {
   offline
   in_game
 }
+
 enum NOTIF_TYPE {
   MESSAGE
   GAME_REQUEST
   FRIEND_REQUEST
 }
+
 enum STATE {
   BLOCKED
   PENDING
   ACCEPTED
   REFUSED
 }
+
 enum MODE {
   CLASSIC
   RANKED
 }
+
 enum Map {
   map1
   map2
 }
+
 enum ROOM_TYPE {
   PRIVATE
   PUBLIC
   PROTECTED
 }
+
 enum USER_STATUS_GROUP {
   MUTED
   UNMUTED
   BANNED
 }
+
 enum USER_ROLE {
   ADMIN
   MEMBER
 }
 
 model User {
-  id            String        @id @default(uuid())
-  firstName     String?       @unique
-  lastName      String?       @unique
-  username      String        @unique
-  email         String        @unique
+  id            String         @id @default(uuid())
+  firstName     String?        @unique
+  lastName      String?        @unique
+  username      String         @unique
+  email         String         @unique
   password      String
   passwordDalt  String
   cover         String
-  towFactorAuth Boolean       @default(false)
-  userstatus    USER_STATUS         @default(offline)
+  towFactorAuth Boolean        @default(false)
+  userstatus    USER_STATUS    @default(offline)
   achievement   Achievement[]
   notification  Notification[]
   Frirndship    Friendship[]
   game          Game[]
-  conversation  conversation[]
-  RoomChatConversation RoomChatConversation[]
   logs          logs?
+  channels      Channel[]
+  messages      Message[]
 }
 
 model Friend {
-  id          String @id @default(uuid())
-  state       STATE
-  userId      String
-  friendId    String
-  Friendship  Friendship[]
-
-
+  id         String       @id @default(uuid())
+  state      STATE
+  userId     String
+  friendId   String
+  Friendship Friendship[]
 }
+
 model Friendship {
   userId   String
   friendId String
-  @@id([userId, friendId])
-  user     User @relation(fields: [userId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
   friend   Friend @relation(fields: [friendId], references: [id])
 
+  @@id([userId, friendId])
 }
+
 model Achievement {
   id          String @id @default(uuid())
   name        String
   description String
   userId      String
-  user       User? @relation(fields: [userId], references: [id])
+  user        User?  @relation(fields: [userId], references: [id])
+}
 
-}
 model Notification {
-  id          String @id @default(uuid())
-  userId      String
-  user        User? @relation(fields: [userId], references: [id])
-  notftype    NOTIF_TYPE @default(MESSAGE)
+  id       String     @id @default(uuid())
+  userId   String
+  user     User?      @relation(fields: [userId], references: [id])
+  notftype NOTIF_TYPE @default(MESSAGE)
 }
+
 model History {
   id            String  @id @default(uuid())
   userScore     Int
   opponentScore Int
   accepted      Boolean
-  gameId        String @unique
-  game          Game   @relation(fields: [gameId], references: [id]) // Define the relation to Game
+  gameId        String  @unique
+  game          Game    @relation(fields: [gameId], references: [id]) // Define the relation to Game
 }
-
 
 model logs {
-  id          String @id @default(uuid())
-  vectories   Int
-  defeats     Int
-  level       Int
-  rank        String
-  userId      String @unique
-  user        User? @relation(fields: [userId], references: [id])
+  id        String @id @default(uuid())
+  vectories Int
+  defeats   Int
+  level     Int
+  rank      String
+  userId    String @unique
+  user      User?  @relation(fields: [userId], references: [id])
 }
+
 model opponent {
-  id          String @id @default(uuid())
-  username    String
-  Game        Game[]
-
+  id       String @id @default(uuid())
+  username String
+  Game     Game[]
 }
+
 model Game {
-  id          String @id @default(uuid())
-  historyId   String?  @unique
-  opponentId  String
-  mode        MODE
-  map         Map
-  history     History?
-  userId      String
-  opponent    opponent @relation(fields: [opponentId], references: [id]) // Define the relation to User
-  user        User? @relation(fields: [userId], references: [id]) // Define the relation to User
+  id         String   @id @default(uuid())
+  historyId  String?  @unique
+  opponentId String
+  mode       MODE
+  map        Map
+  history    History?
+  userId     String
+  opponent   opponent @relation(fields: [opponentId], references: [id]) // Define the relation to User
+  user       User?    @relation(fields: [userId], references: [id]) // Define the relation to User
 }
-model roomChat {
-  id          String @id @default(uuid())
-  type        ROOM_TYPE
-  password    String
-  RoomChatConversation RoomChatConversation[]
+
+model Channel {
+  id            String    @id @default(uuid())
+  name          String
+  directMessage Boolean
+  type          ROOM_TYPE
+  moderatorId   String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  messages      Message[]
+  members       User[]
+  memberCount   Int       @default(0)
+  memberLimit   Int       @default(100)
 }
-model RoomChatConversation {
-  id          String @id @default(uuid())
-  roomId      String
-  userId      String
-  usertstatus USER_STATUS_GROUP
-  userRole    USER_ROLE
-  room        roomChat @relation(fields: [roomId], references: [id]) // Define the relation to User
-  user        User? @relation(fields: [userId], references: [id]) // Define the relation to User
-}
+
 model Message {
-  id           String @id @default(uuid())
-  message      String
-  idSender     String
-  roomChatId   String
-  conversationId String
-  // one to many 
-  conversation conversation @relation(fields: [conversationId], references: [id]) // Define the relation to User
+  id        String		@id @default(uuid())
+  content   String
+  channelId String
+  channel   Channel	@relation(fields: [channelId], references: [id])
+  userId    String		@unique
+  user      User			@relation(fields: [userId], references: [id])
 }
-model conversation {
-  id          String @id @default(uuid())
-  userId      String
-  user        User? @relation(fields: [userId], references: [id]) // Define the relation to User
-  message     Message[]
-}
-
-
-
-
-
