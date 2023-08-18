@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Buttons } from '../app/types'
 import { ALLbuttons } from '../app/types'
 import { useState, useEffect } from 'react';
+import '@/app/globals.css'
 
 const Sidebar = (props: string) => {
   const [profile, setProfile] = useState(false);
@@ -27,7 +28,7 @@ const Sidebar = (props: string) => {
 
   return (
     <div className="sm:block hidden">
-      <div className="border-r border-black w-[75px] h-screen bg-[#000355] sm:bg-[#33437D] z-10 flex flex-col justify-between">
+      <div className="side border-r border-black w-[75px] h-[100%] bg-[#000355] sm:bg-[#33437D] z-10 flex flex-col justify-between overflow-auto">
         <div className="sm:bg-[#33437D] sm:block hidden">
           <div className="flex justify-center mb-[50px] mt-[20px]">
             <Link href="/profile">
@@ -50,7 +51,7 @@ const Sidebar = (props: string) => {
             </Link>
           </div>
         </div>
-        <div className="flex justify-center mb-[80px] bg-[#33437D]">
+        <div className="flex justify-center mb-[30px] bg-[#33437D]">
           <div className="sm:block hidden">
             <Link href="/settings">
               <Image src={param == true ? ALLbuttons.PARAM_ON : ALLbuttons.PARAM_OFF} alt="image" width={32} height={32}/>

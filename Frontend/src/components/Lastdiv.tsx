@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Lastdiv = () => {
   return (
-    <div className="rounded-2xl flex flex-col w-[413px] md:w-[613px] lg:w-[968px] h-[419px] bg-[#33437D] mt-[36px]">
+    <div className="rounded-2xl flex flex-col w-[413px] md:w-[613px] lg:w-[968px] h-[419px] bg-[#33437D] mt-[36px] mb-[3rem]">
       <div className="border-b-[2px] w-[400px] md:w-[600px] lg:w-[955px] h-[60px] flex items-center justify-center ml-[6px] mr-[6px]">
         <div className="border-r-[2px] w-[322px] h-[51px] flex items-center justify-center">
           <Image src={"/ach_off.png"} alt="image" width={34} height={34}/>

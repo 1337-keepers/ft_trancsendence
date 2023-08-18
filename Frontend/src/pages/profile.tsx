@@ -77,7 +77,7 @@ const Profile = (myCookie: string) => {
   }
 
   return (
-    <div className="flex flex-col w-screen h-screen">
+    <div className="flex flex-col w-screen h-screen overflow-auto">
       <Navbar />
       <Content />
     </div>

@@ -9,7 +9,7 @@ import { Buttons } from '@/app/types';
 const Content = () => {
   let data: string;
   return (
-    <div className="flex">
+    <div className="flex grow">
       <Sidebar data={Buttons.PROFILE} />
       <div className="flex flex-col grow items-center justify-start">
         <Firstdiv />
