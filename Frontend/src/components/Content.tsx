@@ -7,10 +7,10 @@ import { useState } from 'react';
 import { Buttons } from '@/app/types';
 
 const Content = () => {
-  let data: string;
+  const str: string = Buttons.PROFILE;
   return (
     <div className="flex grow">
-      <Sidebar data={Buttons.PROFILE} />
+      <Sidebar data={str} />
       <div className="flex flex-col grow items-center justify-start">
         <Firstdiv />
         <Lastdiv />

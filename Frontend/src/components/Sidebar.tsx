@@ -6,7 +6,7 @@ import { ALLbuttons } from '../app/types'
 import { useState, useEffect } from 'react';
 import '@/app/globals.css'
 
-const Sidebar = (props: string) => {
+const Sidebar = (props: any) => {
   const [profile, setProfile] = useState(false);
   const [game, setGame] = useState(false);
   const [friends, setFriends] = useState(false);
