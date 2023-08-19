@@ -6,12 +6,13 @@ export enum ChatType {
 
 export type User = {
   id:            string
-  firstName:     string
-  lastName:      string
-  userName:      string
-  email:         string
-  cover:         string
-  twoFactorAuth: boolean
+  firstName?:     string
+  lastName?:      string
+  username:      string
+  email?:         string
+  cover?:         string
+  avatar?:         string
+  twoFactorAuth?: boolean
   channels:      Channel[]
 };
 
@@ -20,7 +21,7 @@ export type Message = {
   content: string
   channelId: string
   userId: string
-  createdAt: Date
+  createdAt?: Date
 }
 
 export type Channel = {

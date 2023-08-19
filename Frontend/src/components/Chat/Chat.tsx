@@ -5,55 +5,19 @@ import ChannelsList from './ChannelsList';
 import ChannelContent from './ChannelContent';
 import ChannelDetails from './ChannelDetails';
 
-const Chat = ( {user}:{user: User | null} ) => {
-	const [channels, setChannels] = useState<Channel[]>([]);
+const Chat = ( {user}:{user: User} ) => {
+	const [channels, setChannels] = useState<Channel[]>([...user.channels]);
 	const [selectedChannel, setSelectedChannel] = useState<Channel | null>(null);
 
-	useEffect(() => {
-		const fetchChannels = async () => {
-			// await fetch("/api/channels")
-			// 	.then((res) => res.json())
-			// 	.then((data) => setChannels(data));
-			const message : Message = {
-				id: "1",
-				content: "Hello world!",
-				channelId: "1",
-				userId: "1",
-				createdAt: new Date()
-			}
-			const message2 : Message = {
-				id: "2",
-				content: "zobi",
-				channelId: "1",
-				userId: "1",
-				createdAt: new Date()
-			}
-			const channel : Channel = {
-				id: "1",
-				name: "General",
-				directMessage: false,
-				type: ChatType.PUBLIC,
-				moderatorId: "1",
-				createdAt: new Date(),
-				messages: [message, message2],
-				members: [],
-				memberCount: 1,
-				memberLimit: 100
-			}
-			const user : User = {
-				id: "1",
-				firstName: "John",
-				lastName: "Doe",
-				userName: "johndoe",
-				email: "",
-				cover: "",
-				twoFactorAuth: false,
-				channels: [channel]
-			}
-			updateChannels(user.channels);
-		}
-		fetchChannels();
-	}, []);
+	// useEffect(() => {
+	// 	// const fetchChannels = async () => {
+	// 		// 	// await fetch("/api/channels")
+	// 		// 	// 	.then((res) => res.json())
+	// 		// 	// 	.then((data) => setChannels(data));
+	// 		// 	updateChannels(user.channels);
+	// 		// }
+	// 		// fetchChannels();
+	// }, []);
 
 	const updateChannels = (channels : Channel[]) => {
 		setChannels(channels)

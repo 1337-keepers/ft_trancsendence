@@ -1,14 +1,21 @@
+import { User } from '@/app/types';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
-const Navbar = ({username}:{username:string}) => {
-	const notifications = "/Notifications_off.png";
+const Navbar = ({user}:{user: User | null}) => {
+	const notifications = "/Notifications_off.png"
+	const router = useRouter()
+
+	// if (!user)
+	// 	router.push('/');
+
 	return (
 		<>
 			<div className="w-screen h-[50px] bg-[#33437D] flex justify-between z-20">
 				<div className="border-r border-black flex justify-start items-center">
-					<Link href={`/profile/${username}?username=${username}`}>
+					<Link href={`/profile/zob?username=zob`}>
 						<Image src={"/PongYo.png"} alt="image" width={74} height={50}/>
 					</Link>
 				</div>
