@@ -57,40 +57,30 @@ enum USER_ROLE {
 }
 
 model User {
-  id            String         @id @default(uuid())
-  firstName     String?        @unique
-  lastName      String?        @unique
-  username      String         @unique
-  email         String         @unique
-  password      String
-  passwordDalt  String
+  id            String          @id @default(uuid())
+  firstName     String?         @unique
+  lastName      String?         @unique
+  username      String          @unique
+  email         String?         @unique
   cover         String
-  towFactorAuth Boolean        @default(false)
-  userstatus    USER_STATUS    @default(offline)
+  avatar        String
+  towFactorAuth Boolean         @default(false)
+  userStatus    USER_STATUS     @default(offline)
   achievement   Achievement[]
   notification  Notification[]
-  Frirndship    Friendship[]
+  friends       Friends[]
   game          Game[]
   logs          logs?
   channels      Channel[]
   messages      Message[]
+  UserToChannel UserToChannel[]
 }
 
-model Friend {
-  id         String       @id @default(uuid())
-  state      STATE
-  userId     String
-  friendId   String
-  Friendship Friendship[]
-}
-
-model Friendship {
-  userId   String
-  friendId String
-  user     User   @relation(fields: [userId], references: [id])
-  friend   Friend @relation(fields: [friendId], references: [id])
-
-  @@id([userId, friendId])
+model Friends {
+  id     String @id @default(uuid())
+  state  STATE
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Achievement {
@@ -146,24 +136,33 @@ model Game {
 }
 
 model Channel {
-  id            String    @id @default(uuid())
+  id            String          @id @default(uuid())
   name          String
   directMessage Boolean
   type          ROOM_TYPE
   moderatorId   String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
   messages      Message[]
   members       User[]
-  memberCount   Int       @default(0)
-  memberLimit   Int       @default(100)
+  memberCount   Int             @default(0)
+  memberLimit   Int             @default(100)
+  UserToChannel UserToChannel[]
+}
+
+model UserToChannel {
+  id        String  @id @default(uuid())
+  userId    String
+  channelId String
+  user      User    @relation(fields: [userId], references: [id])
+  channel   Channel @relation(fields: [channelId], references: [id])
 }
 
 model Message {
-  id        String		@id @default(uuid())
+  id        String  @id @default(uuid())
   content   String
   channelId String
-  channel   Channel	@relation(fields: [channelId], references: [id])
-  userId    String		@unique
-  user      User			@relation(fields: [userId], references: [id])
+  channel   Channel @relation(fields: [channelId], references: [id])
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
 }
