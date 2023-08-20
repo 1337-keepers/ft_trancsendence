@@ -8,7 +8,7 @@ import { useEffect,useState } from 'react';
 import { User } from '../app/types';
 
 let currentOTPIndex: number = 0;
-const TFA = (props) => {
+const TFA = (props: any) => {
   const router = useRouter();
   const [cookie, setCookie] = useState<string | null>(props.ins);
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
@@ -42,7 +42,7 @@ const TFA = (props) => {
       // console.error('I am In3');
       try {
         // console.error('I am In4');
-        const response = await fetch(`http://localhost:3000/2fa/verify?secret=${code}&id=${props.id}`);
+        const response = await fetch(`http://localhost:3000/2fa/verify?secret=${code}&cookie=${props.cookie}`);
         if (response.ok) {
           const valid = await response.json();
           if (valid.valid === true)

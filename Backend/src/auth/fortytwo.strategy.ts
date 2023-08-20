@@ -2,6 +2,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, Profile } from 'passport-42';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import * as json from 'json';
 
 @Injectable()
 export class FortyTwoStrategy extends PassportStrategy(Strategy, 'oauth2') {
@@ -15,15 +16,18 @@ export class FortyTwoStrategy extends PassportStrategy(Strategy, 'oauth2') {
   }
 
   async validate(accessToken: string, refreshToken: string, profile: Profile): Promise<any> {
-    return ({
-      id: profile.id,
-      username: profile.username,
-      firstName: profile.name.givenName,
-      lastName: profile.name.familyName,
-      email: profile.emails[0].value,
-      cover: profile.profileUrl,
-      towFactorAuth: false,
-      phoneNumber: "+212638217844"
+      const raw: any = JSON.parse(profile._raw);
+      const ava: string = raw.image.link;
+      return ({
+        id: profile.id,
+        username: profile.username,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
+        email: profile.emails[0].value,
+        cover: "",
+        avatar: ava,
+        towFactorAuth: false,
+        phoneNumber: "+212638217844"
     });
   }
 }

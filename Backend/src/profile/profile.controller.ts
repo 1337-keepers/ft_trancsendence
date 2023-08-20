@@ -18,21 +18,19 @@ export class ProfileController {
   @Get('profile')
   async getUserByUserName(@Query('token') token: string, @Res() res: Response) {
     try {
-        // console.error('token 10: ', token);
-        const user = this.profileService.verifyToken(token);
+
+        if (token === undefined)
+          throw new Error('Token not found');
+        const username: any = this.profileService.verifyToken(token);
+        const user = await this.profileService.findUserByUserName(username);
         if (!user)
           throw new Error('User not found');
         if ((await user).towFactorAuth == true)
           res.redirect(`http://localhost:3001/auth`);
-
-        // const user = await this.profileService.findUserByUserName(username);
-        // console.error('MZN');
         res.send(user);
     }
     catch (err) {
         res.redirect(`http://localhost:3001/missing`);
-        // console.log('problem unknown');
-        throw err;
     }
   }
 }

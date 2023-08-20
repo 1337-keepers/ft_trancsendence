@@ -12,8 +12,8 @@ export class AuthService {
   constructor(private jwtService: JwtService) {
     this.prisma = new PrismaClient();
     this.vonage = new Vonage({
-      apiKey: '54a8d6e2',
-      apiSecret: 'DeSDQC4N7pXGP2ba',
+      apiKey: 'd9dd5c3a',
+      apiSecret: 'ovocDF4ydFIG9y7y',
     }as any);
   }
 
@@ -62,8 +62,7 @@ export class AuthService {
   // async closePrisma() {
   //   await this.prisma.$disconnect();
   // }
-  async validateOrRegisterUser(profile: User): Promise<any> {
-    // console.error('this is the profile : ', profile);
+  async validateOrRegisterUser(profile: any): Promise<any> {
     try {
       const user = await this.prisma.user.findUnique({ where: { id: profile.id } });
       if (user) {
@@ -72,12 +71,13 @@ export class AuthService {
         const newUser = await this.prisma.user.create({
           data: {
             id: profile.id,
-            username: profile.username,
+            userName: profile.username,
             firstName: profile.firstName,
             lastName: profile.lastName,
             email: profile.email,
             cover: profile.cover,
-            towFactorAuth: true,
+            avatar: profile.avatar,
+            towFactorAuth: false,
             userstatus: "offline",
             phoneNumber: "+212638217844",
           },

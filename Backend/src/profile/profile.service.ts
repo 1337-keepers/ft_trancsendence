@@ -22,12 +22,10 @@ export class ProfileService {
   //   return this.prisma.user.delete({ where: { id } });
   // }
 
-  async verifyToken(token: string): Promise<User> {
+  verifyToken(token: string): Promise<string> {
     try {
-      // console.error('token 2: ', token);
-      const decoded: User = await this.jwtService.verifyAsync(token);
-      // console.error('token finded');
-      return decoded;
+      const decoded = this.jwtService.verify(token);
+      return decoded.sub;
     }
     catch (err) {
       console.error('error token');
@@ -37,8 +35,7 @@ export class ProfileService {
 
   async findUserByUserName(username: string): Promise<User> {
     try {
-      const user = await this.prisma.user.findUnique({ where: { username } });
-      console.error(user);
+      const user = await this.prisma.user.findUnique({ where: { userName: username } });
       if (user)
         return user;
       else

@@ -27,9 +27,10 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "firstName" TEXT,
     "lastName" TEXT,
-    "username" TEXT NOT NULL,
+    "userName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "cover" TEXT NOT NULL,
+    "cover" TEXT,
+    "avatar" TEXT,
     "towFactorAuth" BOOLEAN NOT NULL DEFAULT false,
     "otpCode" TEXT,
     "phoneNumber" TEXT,
@@ -101,7 +102,7 @@ CREATE TABLE "logs" (
 -- CreateTable
 CREATE TABLE "opponent" (
     "id" TEXT NOT NULL,
-    "username" TEXT NOT NULL,
+    "userName" TEXT NOT NULL,
 
     CONSTRAINT "opponent_pkey" PRIMARY KEY ("id")
 );
@@ -164,7 +165,7 @@ CREATE UNIQUE INDEX "User_firstName_key" ON "User"("firstName");
 CREATE UNIQUE INDEX "User_lastName_key" ON "User"("lastName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+CREATE UNIQUE INDEX "User_userName_key" ON "User"("userName");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

@@ -34,6 +34,7 @@
     "base-64": "^1.0.0",
     "cors": "^2.8.5",
     "http-proxy-middleware": "^2.0.6",
+    "json": "^11.0.0",
     "jsonwebtoken": "^9.0.1",
     "nestjs-session": "^2.0.0",
     "passport": "^0.6.0",

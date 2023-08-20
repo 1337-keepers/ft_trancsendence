@@ -53,9 +53,10 @@ model User {
   id            String        @id @default(uuid())
   firstName     String?       @unique
   lastName      String?       @unique
-  username      String        @unique
+  userName      String        @unique
   email         String        @unique
-  cover         String
+  cover         String?
+  avatar        String?
   towFactorAuth Boolean       @default(false)
   otpCode       String?
   phoneNumber   String?
@@ -121,7 +122,7 @@ model logs {
 }
 model opponent {
   id          String @id @default(uuid())
-  username    String
+  userName    String
   Game        Game[]
 
 }

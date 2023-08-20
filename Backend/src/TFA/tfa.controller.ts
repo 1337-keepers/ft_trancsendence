@@ -6,8 +6,8 @@ import { Response } from 'express';
 export class TfaController {
   constructor(private readonly tfaService: TfaService) {}
   @Get('verify')
-  async verifyToken(@Query('secret') secret: string, @Query('id') id: string, @Res() res: Response) {
-    const valid = await this.tfaService.verifyToken(secret, id);
+  async verifyToken(@Query('secret') secret: string, @Query('cookie') cookie: string, @Res() res: Response) {
+    const valid = await this.tfaService.verifyToken(secret, cookie);
     res.send({ valid });
   }
 }

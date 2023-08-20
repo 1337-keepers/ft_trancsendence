@@ -32,6 +32,7 @@ export enum ALLbuttons {
     userName:      string
     email:         string
     cover:         string
+    avatar:        string
     towFactorAuth: boolean
     channels:      Channel[]
   };
